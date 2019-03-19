@@ -56,7 +56,9 @@ def construct_chords_in_key(note, mode= "minor"):
 		subdominant_4 = tonic_1 + 5 #minor
 		dominant_5 = tonic_1 + 7 #minor
 		submediant_6 = mediant_3 + 5 #major
-		leading_note_7 = mediant_3 + 6 #major
+		leading_note_7 = mediant_3 + 7 #major
+
+
 
 	chords_in_key = [tonic_1, supertonic_2, mediant_3, subdominant_4, dominant_5, submediant_6, leading_note_7]
 	return chords_in_key
@@ -81,10 +83,15 @@ def pick_random_chord_in_key(note):
 
 
 # initialize start note and construct key
-start_note = int(np.random.rand() * 35) + 34
-notes_in_key = construct_key_from_random_note(start_note)
+start_note = int(np.random.rand() * 32) + 44
+notes_in_key = construct_key_from_random_note(start_note, "minor")
 #print(notes_in_minor_key)
 time = 479
+
+#meta messages such as tempo, track name, instrument, etc...
+output_track1.append(mido.MetaMessage('set_tempo', tempo=600000, time=0))
+output_track1.append(mido.MetaMessage('set_tempo', tempo=600000, time=0))
+
 
 for _ in range(64):
 	note_value = notes_in_key[pick_random_note_in_key(start_note)]
@@ -104,7 +111,7 @@ for _ in range(64):
 	output_track1.append(off)
 
 
-chords_in_key = construct_chords_in_key(start_note-12) #lower harmony
+chords_in_key = construct_chords_in_key(start_note-12, "minor") #lower harmony
 chord_length = 1919 #fixed chord length for now
 velocity_ = 100 #fixed chord velocity for now
 for _ in range(16):
